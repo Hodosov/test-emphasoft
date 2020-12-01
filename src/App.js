@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { useSelector } from "react-redux";
+import { AuthForm } from "./components/AuthForm";
+import { UserPage } from "./components/UserPage";
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  root: {
+    display: 'flex',
+    maxWidth: '500px',
+    margin: '0 auto',
+  }
+})
 
 function App() {
+
+  const classes = useStyles()
+
+  const isAuth = useSelector(state => state.isAuth)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={classes.root}>
+      {isAuth
+        ? <UserPage />
+        : <AuthForm />}
     </div>
   );
 }
